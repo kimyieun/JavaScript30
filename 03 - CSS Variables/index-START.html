@@ -45,6 +45,32 @@
   </style>
 
   <script>
+    const spacing = document.getElementById('spacing');
+    const blur = document.getElementById('blur');
+    const base = document.getElementById('base');
+    const img = document.getElementsByTagName('img')[0];
+    const text = document.getElementsByClassName('hl')[0];
+
+    function setFilter(){
+      img.style.border = `${spacing.value}px solid ${base.value}`;
+      img.style.filter = `blur(${blur.value}px)`;
+      text.style.color = base.value;
+    }
+
+    setFilter();
+
+    const setSpace = event => img.style.border = `${event.target.value}px solid ${base.value}`
+    spacing.addEventListener('input', setSpace);
+  
+    const setBlur = event => img.style.filter = `blur(${event.target.value}px)`
+    blur.addEventListener('input', setBlur);
+
+    const setBase = event => {
+      img.style.border =  `${spacing.value}px solid ${event.target.value}`;
+      text.style.color = event.target.value;
+    }   
+    base.addEventListener('change', setBase);
+
   </script>
 
 </body>
