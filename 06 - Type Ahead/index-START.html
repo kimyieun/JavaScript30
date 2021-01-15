@@ -16,7 +16,32 @@
   </form>
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+let results;
 
+fetch(endpoint)
+.then(response => response.json())
+.then(json => results = json);
+
+const input = document.querySelector('input.search');
+const ul = document.querySelector('.suggestions');
+
+function onsearch(e){
+  ul.innerHTML="";
+  const matchedList = results.filter(result => result.state.toLowerCase().includes(e.target.value) || result.city.toLowerCase().includes(e.target.value)).sort((a, b) => b.population - a.population);
+  matchedList.map(item => {
+    const li = document.createElement("li");
+    const reg = new RegExp(e.target.value, 'ig');
+    const city = item.city.replace(reg, `<span class="hl">${e.target.value}</span>`);
+    const state = item.state.replace(reg, `<span class="hl">${e.target.value}</span>`);
+    const html = `
+      <span>${city}, ${state}</span>
+      <span>${item.population}</span>
+    `;
+    li.innerHTML = html;
+    ul.appendChild(li);
+  })
+};
+input.addEventListener('input', e=> onsearch(e));
 </script>
 </body>
 </html>
