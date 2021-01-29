@@ -54,7 +54,42 @@
   </div>
 
 <script>
+  // 1. IntersectionObserver 사용
+  // const nav = document.getElementById('main');
+  // const firstLi = document.querySelector('li');
+  // nav.style.position = 'sticky';
+  // nav.style.top = '-1px'; //trick
 
+  // function callback(entries){
+  //   entries.map(entry => {
+  //     if(entry.intersectionRatio < 1){
+  //       firstLi.style.flex = 1;
+  //       firstLi.style.maxWidth = '500px';
+  //     }
+  //     else{
+  //       firstLi.style.maxWidth = 0;
+  //     }
+  //   });
+  // }
+  // const options = {threshold : 1};
+  // const observer = new IntersectionObserver(callback, options);
+  // observer.observe(nav);
+
+  // 2. vanilla js 사용
+  const nav = document.getElementById('main');
+  const firstLi = document.querySelector('li');
+  const onScroll = (e) => {
+    if(window.scrollY >= nav.offsetTop){
+      nav.style.position = 'sticky';
+      firstLi.style.flex = 1;
+      // firstLi.style.maxWidth = 'none';
+    }
+    // else{
+    //   firstLi.style.maxWidth = 0;
+    // }
+  }
+
+  window.addEventListener('scroll', onScroll);
 </script>
 
 </body>
