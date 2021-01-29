@@ -96,6 +96,38 @@
   </div>
 
 <script>
+  const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
+  let lastIdx;
+  function changeCheckbox(e){
+    let inBetween = false;
+    if(e.shiftKey && e.target.checked){
+      checkboxes.forEach(checkbox => {
+        if(e.target === checkbox || checkbox === lastCheckbox){
+          inBetween = !inBetween;
+        }
+        if(inBetween) checkbox.checked = true;
+      });
+    }
+    lastCheckbox = e.target;
+  }
+  checkboxes.map(checkbox => checkbox.addEventListener('click', changeCheckbox));
+  
+  // my solution
+  // const checkboxes = [...document.querySelectorAll('input[type="checkbox"]')];
+  // let startIdx = checkboxes.length - 1;
+  // function changeCheckbox(e) {
+  //   if (e.shiftKey) {
+  //     const endIdx = checkboxes.findIndex(d => d === e.target);
+  //     console.log(startIdx, endIdx);
+  //     checkboxes.forEach((checkbox, idx) => {
+  //       if ((idx <= startIdx && idx >= endIdx) || (idx >= startIdx && idx <= endIdx)) checkbox.checked = true;
+  //     })
+  //   }
+  //   if (e.target.checked) startIdx = checkboxes.findIndex(d => d === e.target);
+  //   // console.log([...checkboxes].indexOf(e.target)); 아래와 동일한 코드 (값을 넣으냐, condition을 넣느냐의 차이)
+  // }
+  // checkboxes.map(checkbox => checkbox.addEventListener('click', changeCheckbox));
+
 </script>
 </body>
 </html>
